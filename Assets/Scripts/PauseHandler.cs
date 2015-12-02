@@ -19,8 +19,7 @@ public class PauseHandler : MonoBehaviour {
             if (mouseScript == null || mouseCameraScript == null || moveScript == null) {
                 throw new ArgumentNullException("Missing scripts.");
             }
-        }
-        catch (ArgumentNullException e) {
+        } catch (ArgumentNullException e) {
             Debug.LogWarning(e.Message);
         }
 

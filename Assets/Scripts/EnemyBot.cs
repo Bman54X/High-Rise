@@ -8,8 +8,8 @@ public class EnemyBot : MonoBehaviour {
 
     public Character target1, target2;						// Used to keep track of Robot that EnemyBot is tracking
     Character currentTarget;
-    public GameObject scoreManager;
-    ScoreManager scoreScript;
+    public GameObject gameManager;
+    GameManager scoreScript;
 
     public AudioSource rifleShot;
 
@@ -60,7 +60,7 @@ public class EnemyBot : MonoBehaviour {
         if (!navAgent)
             Debug.Log("NavMeshAgent not found!");
 
-        scoreScript = scoreManager.GetComponent<ScoreManager>();
+        scoreScript = gameManager.GetComponent<GameManager>();
 
         allegiance = Allegiance.Neutral;
     }

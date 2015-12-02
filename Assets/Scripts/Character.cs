@@ -8,8 +8,8 @@ public class Character : MonoBehaviour {
 	CharacterController cc;
 
 	public GameObject projectilePrefab;
-    public GameObject scoreManager;
-    ScoreManager scoreScript;
+    public GameObject gameManager;
+    GameManager scoreScript;
     public GameObject spawnManager;
     SpawnManager spawnScript;
 	public Transform projectileSpawnPoint, gun;
@@ -69,7 +69,7 @@ public class Character : MonoBehaviour {
         healthSlider.value = playerHealth;
         SetAmmoText(); reloadText.SetActive(false); noAmmoText.SetActive(false);
 
-        scoreScript = scoreManager.GetComponent<ScoreManager>();
+        scoreScript = gameManager.GetComponent<GameManager>();
         spawnScript = spawnManager.GetComponent<SpawnManager>();
 
         if (gameObject.tag == "Player2") {
