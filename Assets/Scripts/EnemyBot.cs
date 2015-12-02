@@ -321,6 +321,7 @@ public class EnemyBot : MonoBehaviour {
         anim.SetTrigger("Respawned");
         anim.SetFloat("Speed", 0);
         health = 50;
+        navAgent.Resume();
 
         if (allegiance == Allegiance.Neutral) {
             rend.material.SetColor("_Color", Color.grey);

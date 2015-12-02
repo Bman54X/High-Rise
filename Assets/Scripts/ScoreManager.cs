@@ -25,7 +25,8 @@ public class ScoreManager : MonoBehaviour {
         if (!winnerDeclared) {
             if (redScore < 0) {
                 redScore = 0;
-            } else if (blueScore < 0) {
+            }
+            else if (blueScore < 0) {
                 blueScore = 0;
             }
 
@@ -47,5 +48,14 @@ public class ScoreManager : MonoBehaviour {
                 winner = "Blue";
             }
         }
+
+        /*if (winnerDeclared) {
+            Time.timeScale = 1.0f;
+            player.transform.gameObject.GetComponent<Character>().paused = false;
+            mouseScript.canLook = true;
+            mouseCameraScript.canLook = true;
+            moveScript.canMove = true;
+            pauseMenu.SetActive(false);
+        }*/
 	}
 }

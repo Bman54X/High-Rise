@@ -9,6 +9,8 @@ TagManager:
   - Player2
   - Health
   - DoublePower
+  - Ammo
+  - DeathBlock
   layers:
   - Default
   - TransparentFX
