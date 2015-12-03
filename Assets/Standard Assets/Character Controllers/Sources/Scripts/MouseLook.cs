@@ -40,16 +40,16 @@ public class MouseLook : MonoBehaviour {
 
                 transform.localEulerAngles = new Vector3(-rotationY, rotationX, 0);
             } else if (axes == RotationAxes.MouseX) {
-                if (gameObject.tag == "Player") {
-                    transform.Rotate(0, Input.GetAxis("Mouse X") * sensitivityX, 0);
+                if (gameObject.tag == "Player2") {
+                    transform.Rotate(0, Input.GetAxis("Joystick X") * sensitivityX, 0);
                 } else {
-                   // transform.Rotate(0, Input.GetAxis("Joystick X") * sensitivityX, 0);
+                    transform.Rotate(0, Input.GetAxis("Mouse X") * sensitivityX, 0);
                 }
             } else {
-                if (gameObject.tag == "Player") {
-                    rotationY += Input.GetAxis("Mouse Y") * sensitivityY;
+                if (gameObject.tag == "Player2") {
+                    rotationY += Input.GetAxis("Joystick Y") * sensitivityY;
                 } else {
-                    //rotationY += Input.GetAxis("Joystick Y") * sensitivityY;
+                    rotationY += Input.GetAxis("Mouse Y") * sensitivityY;
                 }
                 rotationY = Mathf.Clamp(rotationY, minimumY, maximumY);
 

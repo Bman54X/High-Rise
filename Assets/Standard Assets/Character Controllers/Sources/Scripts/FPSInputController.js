@@ -13,10 +13,10 @@ function Update () {
 	var directionVector;
 
 	// Get the input vector from keyboard or analog stick
-	if (gameObject.tag == "Player") {
-		directionVector = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+	if (gameObject.tag == "Player2") {
+		directionVector = new Vector3(Input.GetAxis("Joystick Move X"), 0, Input.GetAxis("Joystick Move Y"));
 	} else {
-		//directionVector = new Vector3(Input.GetAxis("Joystick Move X"), 0, Input.GetAxis("Joystick Move Y"));
+		directionVector = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
 	}
 	
 	if (directionVector != Vector3.zero) {
@@ -39,10 +39,10 @@ function Update () {
 	// Apply the direction to the CharacterMotor
 	motor.inputMoveDirection = transform.rotation * directionVector;
 
-	if (gameObject.tag == "Player") {
-		motor.inputJump = Input.GetButton("Jump");
+	if (gameObject.tag == "Player2") {
+		motor.inputJump = Input.GetButton("Joystick Jump");
 	} else {
-		//motor.inputJump = Input.GetButton("Joystick Jump");
+		motor.inputJump = Input.GetButton("Jump");
 	}
 	}
 }

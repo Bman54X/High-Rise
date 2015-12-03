@@ -94,7 +94,8 @@ public class Character : MonoBehaviour {
         }
 
 		//Key Press Stuff
-		if (Input.GetButton("Fire1") && bulletsInClip > 0 && canFire && !paused) {
+		if (((Input.GetButton("Fire1") && gameObject.tag == "Player") || (Input.GetAxis("Joystick Fire") == 1 && gameObject.tag == "Player2")) 
+              && bulletsInClip > 0 && canFire && !paused && alive) {
             if (framesSinceLastShot == framesPerShot) {
                 GameObject temp = Instantiate(projectilePrefab, projectileSpawnPoint.position, gun.rotation) as GameObject;
                 temp.GetComponent<Projectile>().shooter = gameObject.tag;
@@ -117,7 +118,7 @@ public class Character : MonoBehaviour {
             noAmmoText.SetActive(true);
         }
 
-        if (Input.GetKeyDown(KeyCode.R) && !paused) {
+        if (Input.GetButton("Reload") && !paused && alive) {
             int refill = 30 - bulletsInClip;
 
             if (bulletsRemaining > refill) {
@@ -167,7 +168,7 @@ public class Character : MonoBehaviour {
     }
 
     void OnCollisionEnter(Collision c) {
-        if (c.gameObject.CompareTag("Projectile")) {
+        if (c.gameObject.CompareTag("Projectile") && alive) {
             killer = c.gameObject.GetComponent<Projectile>().shooter;
             if ((killer == "Player2" && team == "Blue") ||
                 (killer == "Player" && team == "Red") ||
@@ -177,7 +178,7 @@ public class Character : MonoBehaviour {
                 playerHealth -= c.gameObject.GetComponent<Projectile>().projectileDamage;
             }
 
-            if (playerHealth <= 0) {
+            if (playerHealth <= 0 && alive) {
                 if (killer == "Player") {
                     scoreScript.blueScore += 5;
                 } else if (killer == "Player2") {
@@ -189,6 +190,8 @@ public class Character : MonoBehaviour {
                 } else if (killer == "Blue") {
                     scoreScript.blueScore += 3;
                 }
+
+                playerHealth = 0;
 
                 alive = false;
 

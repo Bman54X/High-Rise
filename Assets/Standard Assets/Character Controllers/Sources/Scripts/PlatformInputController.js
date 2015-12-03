@@ -13,10 +13,10 @@ function Awake () {
 function Update () {
 	var directionVector;
 	// Get the input vector from keyboard or analog stick
-	if (gameObject.tag == "Player") {
-		directionVector = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0);
+	if (gameObject.tag == "Player2") {
+		directionVector = new Vector3(Input.GetAxis("Joystick Move X"), Input.GetAxis("Joystick Move Y"), 0);
 	} else {
-		//directionVector = new Vector3(Input.GetAxis("Joystick Move X"), Input.GetAxis("Joystick Move Y"), 0);
+		directionVector = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0);
 	}
 	
 	if (directionVector != Vector3.zero) {

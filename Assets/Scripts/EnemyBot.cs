@@ -22,7 +22,10 @@ public class EnemyBot : MonoBehaviour {
     public Transform hand; 					// SpawnPoint for projectile
     public GameObject projectilePrefab;		// Used to create the prefab
     public float projectileSpeed = 20.0f;	// Used to control projectile firing speed
-    public GameObject RedSpawn1, BlueSpawn1, NeutralSpawn1;
+    
+    public Transform[] redSpawns = new Transform[3];
+    public Transform[] blueSpawns = new Transform[3];
+    public Transform[] neutralSpawns = new Transform[6];
 
     float nextFire = 0; 					// Used to tell if a bullet should be fired
     float fireRate = 0.15f;			        // Used to slow fire rate of bullet
@@ -63,6 +66,8 @@ public class EnemyBot : MonoBehaviour {
         scoreScript = gameManager.GetComponent<GameManager>();
 
         allegiance = Allegiance.Neutral;
+
+        gameObject.transform.position = neutralSpawns[Random.Range(0, 6)].position;
     }
 
     // Use this for initialization
@@ -325,14 +330,14 @@ public class EnemyBot : MonoBehaviour {
 
         if (allegiance == Allegiance.Neutral) {
             rend.material.SetColor("_Color", Color.grey);
-            gameObject.transform.position = NeutralSpawn1.transform.position;
+            gameObject.transform.position = neutralSpawns[Random.Range(0, 6)].position;
         } else if (allegiance == Allegiance.Red) {
             rend.material.SetColor("_Color", Color.red);
-            gameObject.transform.position = RedSpawn1.transform.position;
+            gameObject.transform.position = redSpawns[Random.Range(0, 3)].position;
         } else if (allegiance == Allegiance.Blue) {
             Color color = new Color(0, 0.04f, 0.69f);
             rend.material.SetColor("_Color", color);
-            gameObject.transform.position = BlueSpawn1.transform.position;
+            gameObject.transform.position = blueSpawns[Random.Range(0, 3)].position;
         }
 
         // Starts Coroutine to locate Playerbased on distance
