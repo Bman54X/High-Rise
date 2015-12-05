@@ -1053,12 +1053,12 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 915b26639b6cbc749a4c8760cecf4660, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: .75
+  m_Volume: .100000001
   m_Pitch: 1
   Loop: 0
   Mute: 0
   Spatialize: 0
-  Priority: 128
+  Priority: 160
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500
@@ -1142,15 +1142,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target1: {fileID: 0}
   target2: {fileID: 0}
-  scoreManager: {fileID: 0}
+  gameManager: {fileID: 0}
   rifleShot: {fileID: 8240392}
+  bulletHit: {fileID: 0}
   hand: {fileID: 429474}
   projectilePrefab: {fileID: 176996, guid: 13c5db0f756a625418121c2c705ad23a, type: 2}
   projectileSpeed: 20
-  RedSpawn1: {fileID: 0}
-  BlueSpawn1: {fileID: 0}
-  NeutralSpawn1: {fileID: 0}
-  rend: {fileID: 0}
+  redSpawns:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  blueSpawns:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  neutralSpawns:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  rend: {fileID: 13739348}
   _health: 50
 --- !u!136 &13689168
 CapsuleCollider:
@@ -1253,7 +1266,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 160324}
   m_Enabled: 1
   m_Radius: .5
-  m_Speed: 3
+  m_Speed: 4
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120

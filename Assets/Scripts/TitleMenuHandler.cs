@@ -2,12 +2,12 @@
 using System.Collections;
 
 public class TitleMenuHandler : MonoBehaviour {
-    public GameObject titleMenu, options, credits;
+    public GameObject titleMenu,credits;
     public GameObject points, powerups, about, controls;
 
 	// Use this for initialization
 	void Awake() {
-        about.SetActive(false); options.SetActive(false);
+        about.SetActive(false);
         credits.SetActive(false); titleMenu.SetActive(true);
         points.SetActive(false); powerups.SetActive(false);
         controls.SetActive(false);
@@ -19,11 +19,6 @@ public class TitleMenuHandler : MonoBehaviour {
 
     public void AboutMenu() {
         controls.SetActive(true);
-        titleMenu.SetActive(false);
-    }
-
-    public void OptionsMenu() {
-        options.SetActive(true);
         titleMenu.SetActive(false);
     }
 

@@ -23,7 +23,8 @@ public class Character : MonoBehaviour {
     public GameObject reloadText, noAmmoText, doubleText;
     public Slider healthSlider;
 
-    public AudioSource rifleShot;
+    public AudioSource rifleShot, bulletHit;
+    public AudioSource healthSound, ammoSound, powerUpSound;
 
     public float fireSpeed = 20.0f;
     public bool alive;
@@ -35,7 +36,7 @@ public class Character : MonoBehaviour {
     int framesPerShot = 5, framesSinceLastShot = 0;
     int bulletsInClip, bulletsRemaining, maxAmmo = 150;
     int _playerHealth;
-    bool canFire, doublePower;
+    bool canFire, doublePower, invincible;
     string killer;
     int teamScore;
 
@@ -65,7 +66,7 @@ public class Character : MonoBehaviour {
 
         bulletsInClip = 30; bulletsRemaining = maxAmmo;
         playerHealth = 100; canFire = true; alive = true; doublePower = false;
-        paused = false;
+        paused = false; invincible = false;
         healthSlider.value = playerHealth;
         SetAmmoText(); reloadText.SetActive(false); noAmmoText.SetActive(false);
 
@@ -84,12 +85,7 @@ public class Character : MonoBehaviour {
 	}
 
 	void Update() {
-        if (Input.GetKeyDown(KeyCode.Escape) && !paused) {
-            Time.timeScale = 0.0f;
-            mouseScript.canLook = false;
-            mouseCameraScript.canLook = false;
-            moveScript.canMove = false;
-            pauseMenu.SetActive(true);
+        if ((Input.GetKeyDown(KeyCode.Escape) || Input.GetButtonDown("Pause")) && !paused) {
             paused = true;
         }
 
@@ -168,7 +164,7 @@ public class Character : MonoBehaviour {
     }
 
     void OnCollisionEnter(Collision c) {
-        if (c.gameObject.CompareTag("Projectile") && alive) {
+        if (c.gameObject.CompareTag("Projectile") && alive && !invincible) {
             killer = c.gameObject.GetComponent<Projectile>().shooter;
             if ((killer == "Player2" && team == "Blue") ||
                 (killer == "Player" && team == "Red") ||
@@ -176,6 +172,7 @@ public class Character : MonoBehaviour {
                 (killer == "Blue" && team == "Red") ||
                 (killer == "Neutral")) {
                 playerHealth -= c.gameObject.GetComponent<Projectile>().projectileDamage;
+                bulletHit.Play();
             }
 
             if (playerHealth <= 0 && alive) {
@@ -194,6 +191,8 @@ public class Character : MonoBehaviour {
                 playerHealth = 0;
 
                 alive = false;
+
+                gameObject.GetComponent<Animation>().Play("deathAnim");
 
                 Invoke("Respawn", 3.0f);
             }
@@ -214,6 +213,8 @@ public class Character : MonoBehaviour {
             } else {
                 spawnScript.healthAlive[1] = false;
             }
+
+            healthSound.Play();
         } else if (other.gameObject.CompareTag("DoublePower") && !doublePower) {
             doublePower = true;
             Invoke("ResetDoublePower", 15f);
@@ -225,7 +226,11 @@ public class Character : MonoBehaviour {
             } else {
                 spawnScript.powerAlive[1] = false;
             }
+
+            powerUpSound.Play();
         } else if (other.gameObject.CompareTag("Ammo") && bulletsRemaining < maxAmmo) {
+            ammoSound.Play();
+
             bulletsRemaining += 60;
             if (bulletsRemaining > maxAmmo) {
                 bulletsRemaining = maxAmmo;
@@ -244,7 +249,8 @@ public class Character : MonoBehaviour {
         } else if (other.gameObject.CompareTag("DeathBlock")) {
             playerHealth = 0;
             teamScore -= 2;
-            Invoke("Respawn", 2.0f);
+            gameObject.GetComponent<Animation>().Play("deathAnim");
+            Invoke("Respawn", 2.5f);
         }
     }
 
@@ -253,9 +259,11 @@ public class Character : MonoBehaviour {
     }
 
     void Respawn() {
+        gameObject.GetComponent<Animation>().Play("rightSideUp");
+
         bulletsInClip = 30; bulletsRemaining = maxAmmo;
         playerHealth = 100; canFire = true; alive = true; doublePower = false;
-        healthSlider.value = playerHealth;
+        healthSlider.value = playerHealth; invincible = true;
         SetAmmoText(); reloadText.SetActive(false); noAmmoText.SetActive(false);
 
         if (gameObject.tag == "Player2") {
@@ -263,5 +271,11 @@ public class Character : MonoBehaviour {
         }  else {
             gameObject.transform.position = blueSpawn.position;
         }
+
+        Invoke("CancelInvincibility", 2.0f);
+    }
+
+    void CancelInvincibility() {
+        invincible = false;
     }
 }

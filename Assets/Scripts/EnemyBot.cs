@@ -11,7 +11,7 @@ public class EnemyBot : MonoBehaviour {
     public GameObject gameManager;
     GameManager scoreScript;
 
-    public AudioSource rifleShot;
+    public AudioSource rifleShot, bulletHit;
 
     float rotationSpeed = 5.0f; 			// Speed robot rotates
     float attackRange = 200.0f;				// Distance robot attacks
@@ -295,6 +295,7 @@ public class EnemyBot : MonoBehaviour {
                 (killer == "Player2" && allegiance == Allegiance.Blue) ||
                 (allegiance == Allegiance.Neutral && (killer == "Player" || killer == "Player2"))) {
                 health -= c.gameObject.GetComponent<Projectile>().projectileDamage;
+                bulletHit.Play();
 
                 if (health <= 0 && !dead) {
                     dead = true;

@@ -39,16 +39,14 @@ public class GameManager : MonoBehaviour {
         winnerDeclared = false;
         scoreLimit = 100;
         gameOverCamera.SetActive(false);
-        gameOver.SetActive(false);
-        winnerPanel.SetActive(false);
+        gameOver.SetActive(false); winnerPanel.SetActive(false);
     }
 
     void Update() {
         if (!winnerDeclared && !timerDone) {
             if (redScore < 0) {
                 redScore = 0;
-            }
-            else if (blueScore < 0) {
+            } else if (blueScore < 0) {
                 blueScore = 0;
             }
 
