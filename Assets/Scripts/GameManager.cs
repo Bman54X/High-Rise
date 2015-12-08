@@ -67,11 +67,7 @@ public class GameManager : MonoBehaviour {
                 winnerDeclared = true;
                 winner = "Blue";
             }
-        }
 
-        timer -= Time.deltaTime;
-
-        if (!timerDone && !winnerDeclared) {
             string minutes = Mathf.Floor(timer / 60).ToString("00");
             string seconds = Mathf.Floor(timer % 60).ToString("00");
 
@@ -81,23 +77,25 @@ public class GameManager : MonoBehaviour {
                 timerDone = true;
                 if (blueScore > redScore) {
                     winner = "Blue";
-                } else if (blueScore < redScore) {
+                }
+                else if (blueScore < redScore) {
                     winner = "Red";
-                } else if (blueScore == redScore) {
+                }
+                else if (blueScore == redScore) {
                     winner = "Tie";
                 }
             }
         }
 
+        timer -= Time.deltaTime;
+
         if ((winnerDeclared || timerDone) && !enteredOnce) {
             Time.timeScale = 0.2f;
 
-            player1.transform.gameObject.GetComponent<Character>().paused = true;
             mouseScript1.canLook = false;
             mouseCameraScript1.canLook = false;
             moveScript1.canMove = false;
 
-            player2.transform.gameObject.GetComponent<Character>().paused = true;
             mouseScript2.canLook = false;
             mouseCameraScript2.canLook = false;
             moveScript2.canMove = false;

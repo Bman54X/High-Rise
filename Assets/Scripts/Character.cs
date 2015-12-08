@@ -85,10 +85,6 @@ public class Character : MonoBehaviour {
 	}
 
 	void Update() {
-        if ((Input.GetKeyDown(KeyCode.Escape) || Input.GetButtonDown("Pause")) && !paused) {
-            paused = true;
-        }
-
 		//Key Press Stuff
 		if (((Input.GetButton("Fire1") && gameObject.tag == "Player") || (Input.GetAxis("Joystick Fire") == 1 && gameObject.tag == "Player2")) 
               && bulletsInClip > 0 && canFire && !paused && alive) {
@@ -177,9 +173,9 @@ public class Character : MonoBehaviour {
 
             if (playerHealth <= 0 && alive) {
                 if (killer == "Player") {
-                    scoreScript.blueScore += 5;
+                    scoreScript.blueScore += 100;
                 } else if (killer == "Player2") {
-                    scoreScript.redScore += 5;
+                    scoreScript.redScore += 100;
                 } else if (killer == "Neutral") {
                     teamScore -= 2;
                 } else if (killer == "Red") {

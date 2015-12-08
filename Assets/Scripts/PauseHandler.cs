@@ -8,6 +8,7 @@ public class PauseHandler : MonoBehaviour {
     public GameObject pauseMenu, player1, camera1, player2, camera2;
     MouseLook mouseScript1, mouseCameraScript1, mouseScript2, mouseCameraScript2;
     FPSInputController moveScript1, moveScript2;
+    bool paused;
 
     // Use this for initialization
     void Start() {
@@ -20,12 +21,14 @@ public class PauseHandler : MonoBehaviour {
         moveScript2 = player2.transform.gameObject.GetComponent<FPSInputController>();
 
         pauseMenu.SetActive(false);
+        paused = false;
     }
 
     // Update is called once per frame
     void Update() {
-        if (player1.transform.gameObject.GetComponent<Character>().paused || 
-            player2.transform.gameObject.GetComponent<Character>().paused) {
+        if ((Input.GetKeyDown(KeyCode.Escape) || Input.GetButtonDown("Pause")) && paused) {
+            ResumeGame();
+        } else if ((Input.GetKeyDown(KeyCode.Escape) || Input.GetButtonDown("Pause")) && !paused) {
             Time.timeScale = 0.0f;
 
             player1.transform.gameObject.GetComponent<Character>().paused = true;
@@ -34,18 +37,9 @@ public class PauseHandler : MonoBehaviour {
             mouseScript1.canLook = false; mouseScript2.canLook = false;
             mouseCameraScript1.canLook = false; mouseCameraScript2.canLook = false;
             moveScript1.canMove = false; moveScript2.canMove = false;
+            paused = true;
 
             pauseMenu.SetActive(true);
-        }
-
-        if (Input.GetKeyDown(KeyCode.Escape) || Input.GetButtonDown("Pause")) {
-            Time.timeScale = 1.0f;
-            player1.transform.gameObject.GetComponent<Character>().paused = false;
-            player2.transform.gameObject.GetComponent<Character>().paused = false;
-            mouseScript1.canLook = true; mouseScript2.canLook = true;
-            mouseCameraScript1.canLook = true; mouseCameraScript2.canLook = true;
-            moveScript1.canMove = true; moveScript2.canMove = true;
-            pauseMenu.SetActive(false);
         }
     }
 
@@ -56,6 +50,7 @@ public class PauseHandler : MonoBehaviour {
         mouseScript1.canLook = true; mouseScript2.canLook = true;
         mouseCameraScript1.canLook = true; mouseCameraScript2.canLook = true;
         moveScript1.canMove = true; moveScript2.canMove = true;
+        paused = false;
         pauseMenu.SetActive(false);
     }
 
