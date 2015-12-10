@@ -15,7 +15,7 @@ public class Character : MonoBehaviour {
 	public Transform projectileSpawnPoint, gun;
     public Transform redSpawn, blueSpawn;
 
-    public GameObject pauseMenu, camera;
+    public GameObject pauseMenu, camera1;
     FPSInputController moveScript;
     MouseLook mouseScript, mouseCameraScript;
 
@@ -52,7 +52,7 @@ public class Character : MonoBehaviour {
         rifleScript = gun.gameObject.GetComponent<Rifle>();
 
         mouseScript = gameObject.GetComponent<MouseLook>();
-        mouseCameraScript = camera.transform.gameObject.GetComponent<MouseLook>();
+        mouseCameraScript = camera1.transform.gameObject.GetComponent<MouseLook>();
         moveScript = gameObject.GetComponent<FPSInputController>();
         try {
             if (mouseScript == null || mouseCameraScript == null || moveScript == null) {
